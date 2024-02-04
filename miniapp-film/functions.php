@@ -12,12 +12,17 @@ function setup_db()
   if ($wpdb->get_var("SHOW TABLES LIKE '" . $tableName . "'") != $tableName) {
     dbDelta("SET GLOBAL TIME_ZONE = '+07:00';");
     $sql = 'CREATE TABLE ' . $tableName . '(
-        id BIGINT AUTO_INCREMENT,
-        category_id INT NULL,
-        film_name VARCHAR(255) NULL,
-        film_poster VARCHAR(255) NULL,
-        create_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY(id))';
+      id BIGINT AUTO_INCREMENT,
+      film_name VARCHAR(255) NULL,
+      film_poster VARCHAR(255) NULL,
+      combo_5 INT NULL,
+      combo_10 INT NULL,
+      combo_15 INT NULL,
+      combo_20 INT NULL,
+      category_id INT NULL,
+      category_name VARCHAR(255) NULL,
+      create_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY(id))';
     dbDelta($sql);
   }
 }
@@ -88,3 +93,9 @@ function load_media_files() {
 }
 
 add_action('admin_enqueue_scripts', 'load_media_files');
+
+function filter_site_upload_size_limit() {
+  return 1024 * 512000;
+}
+
+add_filter( 'upload_size_limit', 'filter_site_upload_size_limit', 20 );
