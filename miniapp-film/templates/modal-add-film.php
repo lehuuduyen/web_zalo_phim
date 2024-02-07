@@ -4,7 +4,7 @@
     <div class="modal-header">
       <p>Thêm phim</p>
     </div>
-    <form action="" method="POST">
+    <form id="formAddFilm" action="" method="POST">
       <div class="modal-content">
         <table class="form-table">
           <tr>
@@ -12,7 +12,8 @@
               <label>Tên phim</label>
             </th>
             <td>
-              <input name="film_name" type="text" class="regular-text">
+              <input name="film_name" type="text" class="regular-text require-field">
+              <p class="required d-none">Đây là trường bắt buộc</p>
             </td>
           </tr>
           <tr id="tr-add-film">
@@ -44,33 +45,16 @@
             </td>
           </tr>
           <tr>
-            <th>Giá combo 5 tập</th>
+            <th>Chiếc khấu</th>
             <td>
-              <input type="number" name="combo_5" />
-            </td>
-          </tr>
-          <tr>
-            <th>Giá combo 10 tập</th>
-            <td>
-              <input type="number" name="combo_10" />
-            </td>
-          </tr>
-          <tr>
-            <th>Giá combo 15 tập</th>
-            <td>
-              <input type="number" name="combo_15" />
-            </td>
-          </tr>
-          <tr>
-            <th>Giá combo 20 tập</th>
-            <td>
-              <input type="number" name="combo_20" />
+              <input type="number" name="discount" />
             </td>
           </tr>
         </table>
       </div>
       <div class="modal-actions">
-        <button name="addFilm" class="button button-primary">
+        <input hidden name="addFilm" />
+        <button onclick="submitForm('formAddFilm')" type="button" class="button button-primary">
           <span>Thêm phim</span>
         </button>       
       </div>
