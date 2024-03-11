@@ -360,3 +360,42 @@ function custom_login_redirect() {
 }
   
 add_filter('login_redirect', 'custom_login_redirect');
+
+/* Rename WooCommerce menu */
+add_action( 'admin_menu', 'rename_woocoomerce', 999 );
+function rename_woocoomerce()
+{
+  global $menu;
+  $woo = rename_woocommerce( 'WooCommerce', $menu );
+  if( !$woo )
+    return;
+    $menu[$woo][0] = 'Orders';
+  }
+  function rename_woocommerce($needle, $haystack) {
+    foreach($haystack as $key => $value) {
+    $current_key = $key;
+    if (
+      $needle === $value
+      OR (
+        is_array( $value )
+        && rename_woocommerce( $needle, $value ) !== false
+      )
+    ) {
+      return $current_key;
+    }
+  }
+  return false;
+}
+
+function plt_hide_woocommerce_menus() {
+	remove_menu_page('wc-admin&path=/wc-pay-welcome-page');
+	remove_submenu_page('woocommerce', 'wc-admin');
+	remove_submenu_page('woocommerce', 'wc-admin&path=/customers');
+	remove_submenu_page('woocommerce', 'wc-reports');
+	remove_submenu_page('woocommerce', 'wc-admin&path=/extensions');
+	remove_submenu_page('woocommerce', 'wc-addons');
+	remove_submenu_page('woocommerce-marketing', 'admin.php?page=wc-admin&path=/marketing');
+  remove_submenu_page('woocommerce', 'wc-status');
+}
+
+add_action('admin_menu', 'plt_hide_woocommerce_menus', 100);
