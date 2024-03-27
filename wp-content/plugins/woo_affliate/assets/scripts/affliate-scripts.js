@@ -45,6 +45,9 @@ function changeUrl(tabId) {
   if (tabId == 4) {
     window.history.pushState('', '', '?page=hoa-hong&paged=1&tab=setting4');
   }
+  if (tabId == 5) {
+    window.history.pushState('', '', '?page=hoa-hong&paged=1&tab=setting5');
+  }
 }
 
 let checkSelect = 0;

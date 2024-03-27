@@ -53,6 +53,15 @@
     }
     $successMessage = 'Lưu cài đặt thành công';
   }
+  if (isset($_POST['saveSettingRewardPolicy'])) {
+    $wpAffliateLevel2 = get_option('reward_policy');
+    if ($wpAffliateLevel2) {
+      update_option('reward_policy',$_POST['reward_policy']);
+    } else {
+      add_option('reward_policy',$_POST['reward_policy']);
+    }
+    $successMessage = 'Lưu cài đặt thành công';
+  }
 
   if (isset($_POST['updateStatus'])) {
     $update = $wpdb->update($tableUserCommission, ['status' => $_POST['status']], ['id' => $_POST['userCommissionId']]);
@@ -82,6 +91,9 @@
     <li id="tabSetting4" onclick="changeUrl(4)">
       <a href="#tab-setting-4-content">Thống kê doanh thu</a>
     </li>
+    <li id="tabSetting5" onclick="changeUrl(5)">
+      <a href="#tab-setting-5-content">Chính sách nhận thưởng</a>
+    </li>
   </ul>
   <div class="tab-content">
     <div id="tab-setting-1-content" class="tab-pane-affliate active">
@@ -104,6 +116,14 @@
     </div>
     <div id="tab-setting-4-content" class="tab-pane-affliate">
       <?php require_once(dirname(__FILE__) . '/revenue-statistics.php'); ?>
+    </div>
+    <div id="tab-setting-5-content" class="tab-pane-affliate">
+      <form action="?page=hoa-hong&paged=1&tab=setting5" method="POST">
+        <h4>Chính sách nhận thưởng</h4>
+        <input type="text" class="regular-text" name="reward_policy" value="<?php echo get_option('reward_policy'); ?>" />
+        <button type="submit" class="button button-primary" name="saveSettingRewardPolicy">Lưu lại</button>
+      </form>
+      
     </div>
   </div>
   <div class="overlay d-none"></div>
